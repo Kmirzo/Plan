@@ -1,6 +1,6 @@
 console.log("web serverni boshlash");
-
 const express = require("express");
+const res = require("express/lib/response");
 const app = express();
 const http = require("http");
 
@@ -9,19 +9,20 @@ app.use(express.static("public")); // public folderni ochib qoyish holati
 app.use(express.json()); // json formatni objectga ogirib beradi
 app.use(express.urlencoded({ extended: true }));
 
-// 2: Session
+// 2: Session code
 
-// 3: Views
-app.set("views", "views");
-app.set("views engine", "ejs");
+// 3: Views code
+app.set("views", "views"); // res.renderdagi faylni shu papkalar ichidan search qilsin
+app.set("view engine", "ejs");
 
-// 4 : Routing
-app.get("/hello", function (req, res) {
-  res.end(" <h1> Hello world  by me<h1/> ");
+// 4 : Routing code
+app.post("/create-item", (req, res) => {
+  console.log(req.body);
+  res.json({ test: "success" });
 });
 
-app.get("/gift", function (req, res) {
-  res.end(" <h1> siz sovga bolimidasiz<h1/> ");
+app.get("/", function (req, res) {
+  res.render("main");
 });
 
 const server = http.createServer(app);
